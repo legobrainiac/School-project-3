@@ -2,4 +2,6 @@
     <string name="app_name">0K Student</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_secondary">Secondary</string>
+    <string name="string_secundario">Nota final do secundário: </string>
+    <string name="string_ingles">Nota de ingles: </string>
 </resources>
