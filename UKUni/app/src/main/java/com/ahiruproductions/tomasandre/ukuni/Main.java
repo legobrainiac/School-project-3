@@ -12,8 +12,13 @@ import android.view.DragEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -26,6 +31,9 @@ import java.util.Locale;
 public class Main extends AppCompatActivity {
     public static final String EXT_NOME = "com.ahiruproductions.tomasandre.ukuni.Main.EXT_NOME";
     public static final String EXT_DATA = "com.ahiruproductions.tomasandre.ukuni.Main.EXT_DATA";
+    public static final String EXT_NOTA_INGLES = "com.ahiruproductions.tomasandre.ukuni.Main.INGLES";
+    public static final String EXT_NOTA_SECUNDARIO = "com.ahiruproductions.tomasandre.ukuni.Main.SECUNDARIO";
+    public static final String EXT_UNIVERSIDADE = "com.ahiruproductions.tomasandre.ukuni.Main.UNIVERSIDADE";
 
     Calendar calendar;
     EditText date;
@@ -34,6 +42,9 @@ public class Main extends AppCompatActivity {
     SeekBar barIngles;
     TextView txtSec;
     TextView txtIng;
+    TextView txtUni;
+    ListView universidades;
+    String universidade = "";
 
     DatePickerDialog.OnDateSetListener datePicker;
 
@@ -51,7 +62,22 @@ public class Main extends AppCompatActivity {
         barSecundario = (SeekBar)findViewById(R.id.seekBarSecundario);
         txtIng = (TextView)findViewById(R.id.textViewNotaIngles);
         txtSec = (TextView)findViewById(R.id.textViewNotaSecundario);
+        txtUni = (TextView)findViewById(R.id.textViewUni);
+        universidades = (ListView)findViewById(R.id.listViewUniversidades);
         calendar = Calendar.getInstance();
+
+        String[] items  = new String[] {
+                "Birmingham University",
+                "Aston University",
+                "East London University",
+                "Harvard University",
+                "Oxford University",
+                "Cambridge University",
+                "Edinburgh University"
+        };
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,android.R.id.text1, items);
+        universidades.setAdapter(adapter);
 
         setSupportActionBar(toolbar);
 
@@ -67,11 +93,27 @@ public class Main extends AppCompatActivity {
 
                         }
                     }).show();
-                }
-                else {
+                } else {
                     Intent inte = new Intent(getBaseContext(), Secondary.class);
+
+                    inte.putExtra(EXT_NOME, nome.getText().toString());
+                    inte.putExtra(EXT_DATA, new int[]{calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH), calendar.get(Calendar.YEAR)});
+                    inte.putExtra(EXT_NOTA_INGLES, barIngles.getProgress());
+                    inte.putExtra(EXT_NOTA_SECUNDARIO, barSecundario.getProgress());
+                    inte.putExtra(EXT_UNIVERSIDADE, universidade);
+
                     startActivity(inte);
                 }
+            }
+        });
+
+        //-----------------------------------------------------------
+        universidades.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            //-----------------------------------------------------------
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                universidade = universidades.getItemAtPosition(position).toString();
+                txtUni.setText("Universidade: " + universidade);
             }
         });
 
@@ -79,8 +121,9 @@ public class Main extends AppCompatActivity {
         datePicker = new DatePickerDialog.OnDateSetListener()  {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
                 calendar.set(year,monthOfYear,dayOfMonth);
-                UpdateDate("MM/dd/yy");
+                UpdateDate("dd/MM/yy");
             }
         };
 
@@ -96,6 +139,7 @@ public class Main extends AppCompatActivity {
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                 new DatePickerDialog(Main.this, datePicker, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
@@ -152,7 +196,7 @@ public class Main extends AppCompatActivity {
 
     //-----------------------------------------------------------
     private boolean AssertValues(){
-        if (date.getText().toString().matches("") || nome.getText().toString().matches("")){
+        if (date.getText().toString().matches("") || nome.getText().toString().matches("") || universidade.isEmpty()){
             return false;
         }
         return true;
