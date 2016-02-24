@@ -12,8 +12,16 @@
     tools:context="com.ahiruproductions.tomasandre.ukuni.Main"
     tools:showIn="@layout/activity_main">
 
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2">
+
+
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
@@ -22,68 +30,97 @@
         android:layout_alignParentStart="true"
         android:hint= "Nome"
         android:layout_alignParentEnd="true" />
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/editTextData"
-        android:layout_below="@+id/editTextNome"
-        android:layout_alignParentStart="true"
-        android:hint= "Data de nascimento"
-        android:layout_alignEnd="@+id/editTextNome" />
+
+    </android.support.design.widget.TextInputLayout>
+
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editTextData"
-        android:layout_alignEnd="@+id/editTextData"
         android:layout_alignParentStart="true"
         android:layout_marginStart="28dp"
         android:id="@+id/linearLayout">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/string_secundario"
-            android:id="@+id/textViewNotaSecundario"
-            android:layout_below="@+id/editTextData"
-            android:layout_alignParentStart="true"
-            android:layout_alignEnd="@+id/editTextData" />
-
-        <SeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBarSecundario"
-            android:max="20"
-            android:progress="1"
-            android:indeterminate="false"
-            android:layout_below="@+id/textViewNotaSecundario"
-            android:layout_alignParentStart="true"
-            android:layout_alignEnd="@+id/textViewNotaSecundario" />
-
-        <TextView
-            android:layout_width="159dp"
-            android:layout_height="wrap_content"
-            android:text="@string/string_ingles"
-            android:id="@+id/textViewNotaIngles" />
-
-        <SeekBar
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/seekBarNotaIngles"
-            android:max="20"
-            android:progress="1"
-            android:indeterminate="false" />
     </LinearLayout>
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/listViewUnversidades"
-        android:layout_below="@+id/linearLayout"
+        android:id="@+id/listViewUniversidades"
+        android:choiceMode="singleChoice"
         android:layout_alignParentStart="true"
-        android:choiceMode="singleChoice" />
+        android:layout_below="@+id/textViewUni"
+        android:paddingRight="0dp"
+        android:paddingLeft="15dp"
+        android:paddingEnd="0dp" />
+
+    <SeekBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBarSecundario"
+        android:max="20"
+        android:progress="1"
+        android:indeterminate="false"
+        android:layout_below="@+id/textViewNotaSecundario"
+        android:layout_alignParentStart="true" />
+
+    <SeekBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seekBarNotaIngles"
+        android:max="10"
+        android:progress="1"
+        android:indeterminate="false"
+        android:layout_below="@+id/textViewNotaIngles"
+        android:layout_alignParentStart="true" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+
+    </android.support.design.widget.TextInputLayout>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:ems="10"
+        android:id="@+id/editTextData"
+        android:hint= "Data de nascimento"
+        android:layout_below="@+id/linearLayout2"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/seekBarSecundario"
+        android:enabled="true"
+        android:editable="false" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/string_secundario"
+        android:id="@+id/textViewNotaSecundario"
+        android:layout_below="@+id/editTextData"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="5dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/string_ingles"
+        android:id="@+id/textViewNotaIngles"
+        android:layout_below="@+id/seekBarSecundario"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Universidade: "
+        android:id="@+id/textViewUni"
+        android:layout_below="@+id/seekBarNotaIngles"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
